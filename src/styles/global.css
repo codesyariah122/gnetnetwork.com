@@ -364,10 +364,12 @@ p + p {
   border: 1px solid #a8f4ba33;
   border-radius: 50%;
   inset: 0 27%;
+  animation: globe-latitude 10s ease-in-out infinite;
 }
 
 .globe:after {
   inset: 29% -4%;
+  animation-delay: -4s;
 }
 
 .globe-grid {
@@ -376,10 +378,13 @@ p + p {
   background:
     repeating-linear-gradient(0deg, transparent 0 33px, #99dea21a 34px 35px),
     repeating-linear-gradient(90deg, transparent 0 33px, #99dea21a 34px 35px);
+  background-size:
+    100% 100%,
+    200% 100%;
   border-radius: 50%;
   transform: perspective(180px) rotateY(-30deg);
   opacity: 0.7;
-  animation: grid-drift 12s linear infinite;
+  animation: globe-surface-rotation 16s linear infinite;
 }
 
 .globe > span {
@@ -491,7 +496,7 @@ p + p {
   }
 }
 
-@keyframes grid-drift {
+@keyframes globe-surface-rotation {
   from {
     background-position:
       0 0,
@@ -499,8 +504,20 @@ p + p {
   }
   to {
     background-position:
-      34px 0,
-      0 34px;
+      0 0,
+      100% 0;
+  }
+}
+
+@keyframes globe-latitude {
+  0%,
+  100% {
+    transform: scaleX(0.92) rotate(0deg);
+    opacity: 0.32;
+  }
+  50% {
+    transform: scaleX(1.08) rotate(4deg);
+    opacity: 0.58;
   }
 }
 
