@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { caseStudies } from '../data/site';
+---
+
+<Layout title="Studi Kasus GNET Network">
+  <section class="wrap page-intro">
+    <span class="eyebrow">STUDI KASUS</span>
+    <h1>
+      Kerja nyata.
+      <br />
+      <em>Pendekatan nyata.</em>
+    </h1>
+    <p>
+      Contoh pendekatan GNET dalam membantu kebutuhan konektivitas dan operasional jaringan. Detail pelanggan
+      ditampilkan secara umum untuk menjaga privasi.
+    </p>
+  </section>
+  <section class="wrap case-study-grid section">
+    {caseStudies.map((study, index) => (
+      <article class="case-study-card">
+        <img
+          src={`/images/${study.image}`}
+          alt={study.title}
+          width="900"
+          height="600"
+          loading={index === 0 ? 'eager' : 'lazy'}
+        />
+        <div class="case-study-content">
+          <span class="eyebrow">
+            0{index + 1} / {study.type}
+          </span>
+          <h2>{study.title}</h2>
+          <dl>
+            <div>
+              <dt>Tantangan</dt>
+              <dd>{study.challenge}</dd>
+            </div>
+            <div>
+              <dt>Solusi GNET</dt>
+              <dd>{study.solution}</dd>
+            </div>
+            <div>
+              <dt>Hasil</dt>
+              <dd>{study.result}</dd>
+            </div>
+            <div>
+              <dt>Area</dt>
+              <dd>{study.area}</dd>
+            </div>
+          </dl>
+        </div>
+      </article>
+    ))}
+  </section>
+</Layout>

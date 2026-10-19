@@ -38,6 +38,22 @@ const seo: Record<string, { title: string; description: string; label: string }>
       'Hubungi GNET Network di Banjaran, Kabupaten Bandung untuk cek cakupan internet fiber, WiFi hotspot, dan konsultasi GNET Billing melalui WhatsApp.',
     label: 'Kontak',
   },
+  '/coverage': {
+    title: 'Cek Coverage Internet GNET',
+    description:
+      'Cek area layanan GNET di Banjaran, Cimaung, dan Ciwidey lalu konsultasikan alamat Anda melalui WhatsApp.',
+    label: 'Cek Coverage',
+  },
+  '/calculator': {
+    title: 'Kalkulator Kebutuhan Internet',
+    description: 'Dapatkan rekomendasi kategori layanan GNET berdasarkan jumlah pengguna dan aktivitas internet Anda.',
+    label: 'Kalkulator',
+  },
+  '/case-studies': {
+    title: 'Studi Kasus GNET Network',
+    description: 'Lihat contoh pendekatan GNET dalam instalasi rumah, jaringan lapangan, dan operasional ISP.',
+    label: 'Studi Kasus',
+  },
 };
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const page = seo[path];
@@ -58,6 +74,8 @@ const nav = [
   ['/', 'Beranda'],
   ['/about/', 'Tentang Kami'],
   ['/products/', 'Produk'],
+  ['/coverage/', 'Cakupan'],
+  ['/calculator/', 'Kalkulator'],
   ['/gallery/', 'Galeri'],
   ['/contact/', 'Kontak'],
 ];

@@ -281,3 +281,34 @@ export const operatingHours = [
   ['Sabtu', '09.00–18.00'],
   ['Minggu', '09.00–18.00'],
 ] as const;
+
+export const caseStudies = [
+  {
+    type: 'INSTALASI RUMAH',
+    title: 'Membawa koneksi lebih dekat ke rumah pelanggan',
+    challenge: 'Kebutuhan koneksi stabil untuk aktivitas belajar, bekerja, dan hiburan di rumah.',
+    solution: 'Pengecekan lokasi, penarikan jalur fiber, pemasangan perangkat, dan pengujian sinyal sebelum aktivasi.',
+    result: 'Koneksi siap digunakan sesuai hasil survey dan kebutuhan lokasi.',
+    area: 'Area layanan GNET — konfirmasi alamat diperlukan.',
+    image: 'home-installation.jpg',
+  },
+  {
+    type: 'OPERASIONAL ISP',
+    title: 'Merapikan pengelolaan layanan jaringan',
+    challenge:
+      'Pengelola ISP membutuhkan satu alur kerja untuk pelanggan, invoice, pembayaran, dan perangkat MikroTik.',
+    solution: 'GNET Billing menyatukan proses operasional dan pemantauan layanan dalam satu dashboard.',
+    result: 'Tim memiliki ruang kerja digital yang lebih terstruktur untuk mengelola layanan.',
+    area: 'Pengelola ISP dan jaringan lokal.',
+    image: 'gnet-billing.png',
+  },
+  {
+    type: 'JARINGAN LAPANGAN',
+    title: 'Menyiapkan jalur koneksi di area berkembang',
+    challenge: 'Perluasan area membutuhkan penataan jalur, perangkat, dan pengukuran kualitas sinyal.',
+    solution: 'Tim melakukan instalasi, penataan perangkat, dan pengujian optik sesuai kondisi lapangan.',
+    result: 'Jalur jaringan dipersiapkan untuk melayani titik yang telah dikonfirmasi.',
+    area: 'Banjaran, Cimaung, dan Ciwidey.',
+    image: 'gallery/gallery-2026-10-07-optical-measurement.jpeg',
+  },
+] as const;

@@ -2328,6 +2328,129 @@ html {
   font-weight: 400;
 }
 
+.coverage-request {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.coverage-request h2 {
+  margin: 20px 0 0;
+}
+
+.calculator-layout {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.calculator-card,
+.calculator-result {
+  border: 1px solid var(--line);
+  padding: 32px;
+}
+
+.calculator-card {
+  background: var(--panel);
+  display: grid;
+  gap: 10px;
+}
+
+.calculator-card label {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  margin-top: 10px;
+}
+
+.calculator-card select {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 14px;
+}
+
+.calculator-card .button {
+  margin-top: 18px;
+}
+
+.calculator-result {
+  align-content: center;
+  background: linear-gradient(135deg, #18352a, #10231d);
+  display: grid;
+  min-height: 390px;
+}
+
+.calculator-result h2 {
+  font-size: clamp(34px, 4vw, 58px);
+  margin: 22px 0 10px;
+}
+
+.calculator-result p,
+.calculator-result small {
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 480px;
+}
+
+.calculator-result small {
+  font-size: 10px;
+  margin-top: 16px;
+}
+
+.case-study-grid {
+  display: grid;
+  gap: 22px;
+}
+
+.case-study-card {
+  border: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  overflow: hidden;
+}
+
+.case-study-card img {
+  height: 100%;
+  min-height: 390px;
+  width: 100%;
+}
+
+.case-study-content {
+  padding: 34px;
+}
+
+.case-study-content h2 {
+  font-size: clamp(28px, 3vw, 44px);
+  margin: 20px 0 30px;
+}
+
+.case-study-content dl {
+  margin: 0;
+}
+
+.case-study-content dl > div {
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 120px 1fr;
+  padding: 16px 0;
+}
+
+.case-study-content dt {
+  color: var(--green);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.case-study-content dd {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  margin: 0;
+}
+
 .journey-grid {
   border-top: 1px solid var(--line);
   display: grid;
@@ -2417,6 +2540,31 @@ html {
   .testimonial-empty {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .coverage-request {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .calculator-layout,
+  .case-study-card {
+    grid-template-columns: 1fr;
+  }
+
+  .case-study-card img {
+    height: 260px;
+    min-height: 0;
+  }
+
+  .case-study-content {
+    padding: 24px;
+  }
+
+  .case-study-content dl > div {
+    gap: 12px;
+    grid-template-columns: 1fr;
   }
 
   .coverage-map-heading {

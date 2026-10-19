@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { company } from '../data/site';
+---
+
+<Layout title="Kalkulator Kebutuhan Internet">
+  <section class="wrap page-intro">
+    <span class="eyebrow">KALKULATOR KEBUTUHAN</span>
+    <h1>
+      Temukan kategori
+      <br />
+      <em>yang sesuai.</em>
+    </h1>
+    <p>
+      Jawab tiga pertanyaan singkat. Hasilnya adalah rekomendasi kategori layanan untuk bahan konsultasi bersama tim
+      GNET.
+    </p>
+  </section>
+  <section class="wrap section calculator-layout">
+    <form id="needs-calculator" class="calculator-card">
+      <label for="users">Jumlah pengguna</label>
+      <select id="users" name="users">
+        <option value="small">1–5 pengguna</option>
+        <option value="medium">6–15 pengguna</option>
+        <option value="large">16+ pengguna</option>
+      </select>
+      <label for="activity">Aktivitas utama</label>
+      <select id="activity" name="activity">
+        <option value="home">Belajar, bekerja, dan hiburan</option>
+        <option value="business">Usaha, kasir, dan perangkat kerja</option>
+        <option value="isp">Operasional ISP dan pelanggan</option>
+      </select>
+      <label for="access">Bentuk akses</label>
+      <select id="access" name="access">
+        <option value="fiber">Koneksi fiber ke rumah atau usaha</option>
+        <option value="hotspot">Akses hotspot untuk area tertentu</option>
+        <option value="system">Sistem pengelolaan layanan ISP</option>
+      </select>
+      <button class="button primary" type="submit">
+        Lihat rekomendasi <span>↗</span>
+      </button>
+    </form>
+    <aside id="calculator-result" class="calculator-result" aria-live="polite">
+      <span class="eyebrow">REKOMENDASI AWAL</span>
+      <h2>
+        Pilih kebutuhan
+        <br />
+        <em>Anda.</em>
+      </h2>
+      <p>Hasil akan muncul setelah Anda mengisi pilihan di samping.</p>
+    </aside>
+  </section>
+  <script define:vars={{ whatsapp: company.whatsapp }}>
+    const form = document.querySelector('#needs-calculator');
+    const result = document.querySelector('#calculator-result');
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const access = data.get('access');
+      const recommendations = {
+        fiber: [
+          'Internet Fiber',
+          'Cocok untuk koneksi rumah atau usaha. Tim perlu mengecek alamat dan jalur fiber terlebih dahulu.',
+        ],
+        hotspot: ['WiFi Hotspot', 'Cocok untuk akses fleksibel di area yang sudah memiliki jaringan hotspot GNET.'],
+        system: [
+          'GNET Billing',
+          'Cocok untuk pengelola ISP yang membutuhkan alur pelanggan, invoice, pembayaran, dan MikroTik yang lebih terstruktur.',
+        ],
+      };
+      const [title, description] = recommendations[access];
+      const message = `Halo GNET, saya menggunakan kalkulator kebutuhan. Rekomendasi: ${title}. Pengguna: ${data.get('users')}. Aktivitas: ${data.get('activity')}. Mohon konsultasi lebih lanjut.`;
+      result.innerHTML = `<span class="eyebrow">REKOMENDASI AWAL</span><h2>${title}<em>.</em></h2><p>${description}</p><a class="button primary" href="${whatsapp}?text=${encodeURIComponent(message)}" target="_blank" rel="noopener noreferrer">Konsultasikan hasil <span>↗</span></a><small>Rekomendasi bukan penetapan paket atau harga. Konfirmasi akhir dilakukan oleh tim GNET.</small>`;
+    });
+  </script>
+</Layout>

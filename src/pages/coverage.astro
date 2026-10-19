@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Coverage from '../components/Coverage.astro';
+import { company } from '../data/site';
+---
+
+<Layout title="Cek Coverage Internet GNET">
+  <section class="wrap page-intro coverage-intro">
+    <span class="eyebrow">CEK COVERAGE</span>
+    <h1>
+      Mulai dari
+      <br />
+      <em>alamat Anda.</em>
+    </h1>
+    <p>
+      Masukkan area atau alamat melalui WhatsApp. Tim GNET akan membantu mengecek jalur, layanan, dan ketersediaan di
+      lokasi Anda.
+    </p>
+    <a
+      class="button primary"
+      href={`${company.whatsapp}?text=${encodeURIComponent('Halo GNET, saya ingin cek coverage. Lokasi saya: ')}`}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Cek melalui WhatsApp <span>↗</span>
+    </a>
+  </section>
+  <Coverage />
+  <section class="wrap section coverage-request">
+    <div>
+      <span class="eyebrow">BELUM MENEMUKAN AREA ANDA?</span>
+      <h2>
+        Kirim titik lokasi.
+        <br />
+        <em>Kami bantu cek.</em>
+      </h2>
+    </div>
+    <a class="button outline" href="/contact/">
+      Konsultasi lokasi <span>↗</span>
+    </a>
+  </section>
+</Layout>
