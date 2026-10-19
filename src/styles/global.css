@@ -960,11 +960,25 @@ footer {
 
 .product-photo {
   position: relative;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+  background: var(--panel);
+  cursor: zoom-in;
 }
 
 .product-photo img {
   height: 470px;
   width: 100%;
+  object-fit: contain;
+  background: var(--panel);
+}
+
+.product-photo:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 6px;
 }
 
 .product-photo > span {

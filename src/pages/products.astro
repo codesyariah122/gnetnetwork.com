@@ -59,7 +59,14 @@ import { products, company } from '../data/site';
             </small>
           )}
         </div>
-        <div class="product-photo">
+        <button
+          class="product-photo"
+          type="button"
+          data-product-image={`/images/${p.image}`}
+          data-product-title={p.name}
+          data-product-description={p.description}
+          aria-label={`Perbesar gambar ${p.name}`}
+        >
           <img
             src={`/images/${p.image}`}
             alt={`Dokumentasi ${p.id === 'billing' ? 'pengukuran jaringan fiber GNET' : p.name}`}
@@ -68,7 +75,7 @@ import { products, company } from '../data/site';
             loading="lazy"
           />
           <span>{p.tag}</span>
-        </div>
+        </button>
       </section>
     ))}
   </div>
@@ -99,5 +106,35 @@ import { products, company } from '../data/site';
       </p>
     </details>
   </section>
+  <dialog id="product-lightbox">
+    <button class="close-lightbox" type="button" aria-label="Tutup foto">
+      ✕
+    </button>
+    <img src="" alt="" />
+    <h2></h2>
+    <p></p>
+  </dialog>
   <CTA />
+  <script>
+    const productLightbox = document.querySelector<HTMLDialogElement>('#product-lightbox');
+    if (productLightbox) {
+      let productOpener: HTMLButtonElement | null = null;
+      document.querySelectorAll<HTMLButtonElement>('[data-product-image]').forEach((button) =>
+        button.addEventListener('click', () => {
+          productOpener = button;
+          const image = productLightbox.querySelector('img')!;
+          image.src = button.dataset.productImage!;
+          image.alt = button.dataset.productTitle!;
+          productLightbox.querySelector('h2')!.textContent = button.dataset.productTitle!;
+          productLightbox.querySelector('p')!.textContent = button.dataset.productDescription!;
+          productLightbox.showModal();
+        }),
+      );
+      productLightbox.querySelector('button')?.addEventListener('click', () => productLightbox.close());
+      productLightbox.addEventListener('click', (event) => {
+        if (event.target === productLightbox) productLightbox.close();
+      });
+      productLightbox.addEventListener('close', () => productOpener?.focus());
+    }
+  </script>
 </Layout>
