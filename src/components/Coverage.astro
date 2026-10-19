@@ -1,5 +1,7 @@
 ---
 import { coverageServers } from '../data/site';
+
+const googleMapsApiKey = 'AIzaSyDZU_EBQa8VgkVWwsrmA_vQmFYDOsce5d8';
 ---
 
 <section class="wrap section coverage-section" aria-labelledby="coverage-heading">
@@ -38,7 +40,104 @@ import { coverageServers } from '../data/site';
       </article>
     ))}
   </div>
+  <div class="coverage-map-shell">
+    <div class="coverage-map-heading">
+      <div>
+        <span class="eyebrow">PETA JARINGAN AKTIF</span>
+        <h3>Terhubung di Bandung Selatan.</h3>
+      </div>
+      <p>
+        Lingkaran menunjukkan radius indikatif dari tiap server. Ketersediaan akhir tetap dikonfirmasi setelah
+        pengecekan alamat.
+      </p>
+    </div>
+    <div
+      id="gnet-coverage-map"
+      class="coverage-map"
+      data-servers={JSON.stringify(coverageServers)}
+      aria-label="Peta cakupan server GNET di Banjaran, Cimaung, dan Ciwidey"
+    ></div>
+  </div>
   <div class="coverage-note">
     <span>◎</span> Cakupan dapat berubah mengikuti pengembangan jaringan dan kondisi lokasi.
   </div>
 </section>
+
+<script define:vars={{ googleMapsApiKey }}>
+  const mapElement = document.querySelector('#gnet-coverage-map');
+  const coverageCenters = [
+    { lat: -7.0459, lng: 107.5878, radius: 5600, color: '#9de6a8' },
+    { lat: -7.0978, lng: 107.5697, radius: 6200, color: '#67d5dc' },
+    { lat: -7.1034, lng: 107.4466, radius: 9800, color: '#f4c56b' },
+  ];
+
+  const initCoverageMap = () => {
+    if (!mapElement || !window.google?.maps) return;
+    const googleMaps = window.google.maps;
+    const servers = JSON.parse(mapElement.dataset.servers ?? '[]');
+    const map = new googleMaps.Map(mapElement, {
+      center: { lat: -7.082, lng: 107.535 },
+      zoom: 11,
+      mapTypeControl: false,
+      streetViewControl: false,
+      fullscreenControl: false,
+      gestureHandling: 'cooperative',
+      styles: [
+        { elementType: 'geometry', stylers: [{ color: '#0c1e18' }] },
+        { elementType: 'labels.text.fill', stylers: [{ color: '#a9c6b3' }] },
+        { elementType: 'labels.text.stroke', stylers: [{ color: '#0c1e18' }] },
+        { featureType: 'administrative', elementType: 'geometry.stroke', stylers: [{ color: '#294438' }] },
+        { featureType: 'road', elementType: 'geometry', stylers: [{ color: '#1b342a' }] },
+        { featureType: 'road', elementType: 'labels.text.fill', stylers: [{ color: '#769486' }] },
+        { featureType: 'water', elementType: 'geometry', stylers: [{ color: '#081713' }] },
+        { featureType: 'poi', elementType: 'labels.icon', stylers: [{ visibility: 'off' }] },
+      ],
+    });
+    const bounds = new googleMaps.LatLngBounds();
+
+    servers.forEach((server, index) => {
+      const center = coverageCenters[index];
+      const position = new googleMaps.LatLng(center.lat, center.lng);
+      bounds.extend(position);
+      new googleMaps.Circle({
+        map,
+        center: position,
+        radius: center.radius,
+        fillColor: center.color,
+        fillOpacity: 0.1,
+        strokeColor: center.color,
+        strokeOpacity: 0.6,
+        strokeWeight: 1,
+      });
+      const marker = new googleMaps.Marker({
+        map,
+        position,
+        title: server.name,
+        label: { text: `${index + 1}`, color: '#0c1e18', fontWeight: '700' },
+        icon: {
+          path: googleMaps.SymbolPath.CIRCLE,
+          scale: 13,
+          fillColor: center.color,
+          fillOpacity: 1,
+          strokeColor: '#f3f6ed',
+          strokeWeight: 2,
+        },
+      });
+      const info = new googleMaps.InfoWindow({
+        content: `<div class="gnet-map-info"><strong>${server.name}</strong><span>${server.areas.join(' · ')}</span></div>`,
+      });
+      marker.addListener('click', () => info.open({ map, anchor: marker }));
+    });
+    map.fitBounds(bounds, 50);
+  };
+
+  window.initGnetCoverageMap = initCoverageMap;
+  if (window.google?.maps) initCoverageMap();
+  else {
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${googleMapsApiKey}&callback=initGnetCoverageMap`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+</script>
