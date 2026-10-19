@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CTA from '../components/CTA.astro';
+import ServicePlans from '../components/ServicePlans.astro';
 import { products, company } from '../data/site';
 ---
 
@@ -21,6 +22,7 @@ import { products, company } from '../data/site';
       ))}
     </div>
   </section>
+  <ServicePlans />
   <div class="wrap">
     {products.map((p) => (
       <section id={p.id} class="product-detail split">
@@ -89,6 +91,48 @@ import { products, company } from '../data/site';
       <p>
         Kirimkan alamat atau titik lokasi melalui WhatsApp. Tim GNET akan mengonfirmasi ketersediaan jaringan, pilihan
         paket, dan proses pemasangan.
+      </p>
+    </details>
+    <details>
+      <summary>Berapa lama proses pemasangan?</summary>
+      <p>
+        Durasi bergantung pada hasil pengecekan lokasi, kesiapan jalur, dan jadwal teknisi. Tim GNET akan mengonfirmasi
+        estimasi setelah alamat diperiksa.
+      </p>
+    </details>
+    <details>
+      <summary>Perangkat apa yang perlu disiapkan pelanggan?</summary>
+      <p>
+        Kebutuhan perangkat dapat berbeda untuk setiap lokasi. Tim akan menjelaskan perangkat optik, router, atau akses
+        hotspot yang diperlukan sebelum aktivasi.
+      </p>
+    </details>
+    <details>
+      <summary>Bagaimana melaporkan gangguan jaringan?</summary>
+      <p>
+        Hubungi kanal WhatsApp resmi GNET dengan menyertakan nama, alamat layanan, dan kendala yang terjadi agar tim
+        dapat membantu melakukan pengecekan.
+      </p>
+    </details>
+    <details>
+      <summary>Bagaimana metode pembayaran layanan?</summary>
+      <p>
+        Metode pembayaran dan detail tagihan dikonfirmasi oleh tim GNET sesuai layanan yang dipilih. Minta informasi
+        kanal pembayaran terbaru sebelum melakukan transaksi.
+      </p>
+    </details>
+    <details>
+      <summary>Area mana yang sudah terjangkau?</summary>
+      <p>
+        Daftar area aktif ditampilkan pada bagian cakupan layanan. Ketersediaan akhir tetap perlu dikonfirmasi
+        berdasarkan titik alamat dan jalur jaringan.
+      </p>
+    </details>
+    <details>
+      <summary>Kapan dukungan teknis tersedia?</summary>
+      <p>
+        Jam operasional kanal resmi GNET adalah setiap hari pukul 09.00–18.00. Di luar jam tersebut, pesan dapat
+        ditinggalkan dan akan ditindaklanjuti pada jam layanan.
       </p>
     </details>
     <details>

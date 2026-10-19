@@ -1,0 +1,23 @@
+---
+import { serviceProcess } from '../data/site';
+---
+
+<section class="about-band process-band" aria-labelledby="process-heading">
+  <div class="wrap">
+    <span class="eyebrow">04 / CARA KERJA</span>
+    <h2 id="process-heading">
+      Dari kebutuhan
+      <br />
+      <em>menjadi koneksi.</em>
+    </h2>
+    <div class="process-grid">
+      {serviceProcess.map(([number, title, description]) => (
+        <article class="process-step">
+          <span>{number}</span>
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

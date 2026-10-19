@@ -1,0 +1,50 @@
+---
+import { company, operatingHours } from '../data/site';
+---
+
+<section class="wrap section trust-section" aria-labelledby="trust-heading">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">07 / INFORMASI RESMI</span>
+      <h2 id="trust-heading">
+        Terbuka dalam
+        <br />
+        <em>setiap percakapan.</em>
+      </h2>
+    </div>
+    <p>
+      GNET Network beroperasi di bawah badan usaha CV GNET Cipta Karya Asha dan melayani kebutuhan konektivitas serta
+      solusi digital dari Bandung Selatan.
+    </p>
+  </div>
+  <div class="trust-grid">
+    <article class="trust-card">
+      <span class="eyebrow">BADAN USAHA</span>
+      <h3>{company.legal}</h3>
+      <p>Identitas usaha resmi GNET Network.</p>
+      <a class="text-link" href="/about/">
+        Tentang GNET <span>↗</span>
+      </a>
+    </article>
+    <article class="trust-card">
+      <span class="eyebrow">ALAMAT OPERASIONAL</span>
+      <h3>Banjaran, Kabupaten Bandung</h3>
+      <p>{company.address}</p>
+      <a class="text-link" href="/contact/">
+        Lihat lokasi <span>↗</span>
+      </a>
+    </article>
+    <article class="trust-card hours-card">
+      <span class="eyebrow">JAM OPERASIONAL</span>
+      <h3>Setiap hari · 09.00–18.00</h3>
+      <div class="hours-list">
+        {operatingHours.map(([day, hours]) => (
+          <span>
+            <b>{day}</b>
+            <b>{hours}</b>
+          </span>
+        ))}
+      </div>
+    </article>
+  </div>
+</section>

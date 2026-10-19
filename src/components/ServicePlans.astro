@@ -1,0 +1,47 @@
+---
+import { company, servicePlans } from '../data/site';
+---
+
+<section class="wrap section plans-section" aria-labelledby="plans-heading">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">03 / PRODUK & PAKET</span>
+      <h2 id="plans-heading">
+        Pilih arah.
+        <br />
+        <em>Kami siapkan jalannya.</em>
+      </h2>
+    </div>
+    <p>
+      Rekomendasi kecepatan, harga, dan biaya pemasangan mengikuti hasil pengecekan lokasi serta kebutuhan Anda. Hubungi
+      tim untuk penawaran terbaru.
+    </p>
+  </div>
+  <div class="plans-grid">
+    {servicePlans.map((plan, index) => (
+      <article class="plan-card">
+        <span class="eyebrow">
+          0{index + 1} / {plan.eyebrow}
+        </span>
+        <h3>{plan.name}</h3>
+        <p>{plan.description}</p>
+        <ul class="feature-list">
+          {plan.details.map((detail) => (
+            <li>
+              <span>↗</span> {detail}
+            </li>
+          ))}
+        </ul>
+        <a
+          class="button outline"
+          href={`${company.whatsapp}?text=${encodeURIComponent(plan.message)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {plan.cta} <span>↗</span>
+        </a>
+        <small class="plan-note">Harga dan biaya pemasangan dikonfirmasi oleh tim GNET.</small>
+      </article>
+    ))}
+  </div>
+</section>

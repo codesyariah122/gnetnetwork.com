@@ -218,3 +218,66 @@ export const gallery = [
     description: 'Dokumentasi perangkat jaringan yang mendukung operasional GNET.',
   },
 ];
+
+export const coverageServers = [
+  {
+    name: 'Server Pusat Banjaran',
+    areas: ['Tarigu', 'Pataruman', 'Astaraja', 'Selajami', 'Citereup'],
+    category: 'Fiber & Hotspot',
+  },
+  {
+    name: 'Server Pusat Cimaung',
+    areas: ['Cimaung', 'Pasir Huni', 'Pasir Kaliki', 'Pasir Biru', 'Ganyen', 'Madur', 'Pasir Sangga'],
+    category: 'Fiber & Hotspot',
+  },
+  {
+    name: 'Server Pusat Ciwidey',
+    areas: ['Ciwidey', 'Jagabaya', 'Bakon', 'Riung Rangga', 'Alamaya', 'Ebod'],
+    category: 'Fiber & Hotspot',
+  },
+];
+
+export const servicePlans = [
+  {
+    name: 'Internet Fiber',
+    eyebrow: 'UNTUK RUMAH & USAHA',
+    description: 'Koneksi fiber optik dengan pengecekan lokasi dan rekomendasi paket sesuai kebutuhan.',
+    details: ['Pilihan kecepatan disesuaikan lokasi', 'Pemasangan oleh tim lapangan', 'Dukungan setelah aktivasi'],
+    cta: 'Cek cakupan fiber',
+    message: 'Halo GNET, saya ingin cek cakupan dan paket Internet Fiber.',
+  },
+  {
+    name: 'WiFi Hotspot',
+    eyebrow: 'AKSES FLEKSIBEL',
+    description: 'Akses internet berbasis hotspot untuk area layanan GNET dengan pilihan penggunaan yang praktis.',
+    details: ['Voucher hotspot sesuai kebutuhan', 'Tersedia di area server GNET', 'Tanya titik dan paket yang aktif'],
+    cta: 'Tanya paket hotspot',
+    message: 'Halo GNET, saya ingin menanyakan paket WiFi Hotspot yang tersedia.',
+  },
+  {
+    name: 'GNET Billing',
+    eyebrow: 'SOLUSI DIGITAL ISP',
+    description: 'Dashboard operasional untuk pelanggan, invoice, pembayaran, PPPoE, Hotspot, dan MikroTik.',
+    details: ['Manajemen pelanggan dan paket', 'Invoice dan pembayaran', 'Integrasi PPPoE & Hotspot'],
+    cta: 'Demo GNET Billing',
+    message: 'Halo GNET, saya ingin meminta demo GNET Billing.',
+  },
+];
+
+export const serviceProcess = [
+  ['01', 'Konsultasi', 'Ceritakan kebutuhan internet atau operasional ISP Anda.'],
+  ['02', 'Cek lokasi', 'Tim memeriksa cakupan dan pilihan koneksi yang tersedia.'],
+  ['03', 'Pemasangan', 'Teknisi menyiapkan perangkat dan jalur koneksi di lokasi.'],
+  ['04', 'Aktivasi', 'Layanan diuji lalu diaktifkan sesuai kebutuhan Anda.'],
+  ['05', 'Support', 'Tim GNET tetap siap membantu setelah layanan berjalan.'],
+] as const;
+
+export const operatingHours = [
+  ['Senin', '09.00–18.00'],
+  ['Selasa', '09.00–18.00'],
+  ['Rabu', '09.00–18.00'],
+  ['Kamis', '09.00–18.00'],
+  ['Jumat', '09.00–18.00'],
+  ['Sabtu', '09.00–18.00'],
+  ['Minggu', '09.00–18.00'],
+] as const;

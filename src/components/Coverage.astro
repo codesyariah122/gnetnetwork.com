@@ -1,0 +1,44 @@
+---
+import { coverageServers } from '../data/site';
+---
+
+<section class="wrap section coverage-section" aria-labelledby="coverage-heading">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">02 / CAKUPAN LAYANAN</span>
+      <h2 id="coverage-heading">
+        Dekat dengan
+        <br />
+        <em>area Anda.</em>
+      </h2>
+    </div>
+    <p>
+      Cakupan mengikuti jaringan server GNET yang aktif. Sebutkan desa atau kecamatan Anda agar tim dapat melakukan
+      konfirmasi lokasi.
+    </p>
+  </div>
+  <div class="coverage-grid">
+    {coverageServers.map((server, index) => (
+      <article class="coverage-card">
+        <div class="card-top">
+          <span>
+            0{index + 1} / {server.category}
+          </span>
+          <span>↗</span>
+        </div>
+        <h3>{server.name}</h3>
+        <div class="coverage-chips">
+          {server.areas.map((area) => (
+            <span>{area}</span>
+          ))}
+        </div>
+        <a class="text-link" href="/contact/">
+          Konfirmasi cakupan <span>↗</span>
+        </a>
+      </article>
+    ))}
+  </div>
+  <div class="coverage-note">
+    <span>◎</span> Cakupan dapat berubah mengikuti pengembangan jaringan dan kondisi lokasi.
+  </div>
+</section>

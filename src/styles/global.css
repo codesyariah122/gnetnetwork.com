@@ -2118,6 +2118,205 @@ html {
   display: none;
 }
 
+/* Service, coverage, trust and feedback sections */
+.coverage-grid,
+.plans-grid,
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.coverage-card,
+.plan-card,
+.trust-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 28px;
+}
+
+.coverage-card h3,
+.plan-card h3,
+.trust-card h3 {
+  font-size: 24px;
+  margin: 22px 0 14px;
+}
+
+.coverage-card p,
+.plan-card p,
+.trust-card p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.coverage-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 28px;
+}
+
+.coverage-chips span {
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.3px;
+  padding: 8px 10px;
+}
+
+.coverage-note {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 18px;
+}
+
+.coverage-note span {
+  color: var(--green);
+  margin-right: 8px;
+}
+
+.plan-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.plan-card .feature-list {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.plan-note {
+  color: var(--muted);
+  display: block;
+  font-size: 10px;
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+.process-band {
+  padding-block: 100px;
+}
+
+.process-band h2 {
+  margin: 22px 0 55px;
+}
+
+.process-grid {
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.process-step {
+  border-right: 1px solid var(--line);
+  padding: 26px 18px 10px 0;
+}
+
+.process-step:last-child {
+  border-right: 0;
+}
+
+.process-step > span {
+  color: var(--green);
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.process-step h3 {
+  font-size: 19px;
+  margin: 30px 0 12px;
+}
+
+.process-step p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  max-width: 170px;
+}
+
+.trust-card p {
+  min-height: 42px;
+}
+
+.hours-card h3 {
+  font-size: 19px;
+  margin: 18px 0;
+}
+
+.hours-list {
+  border-top: 1px solid var(--line);
+}
+
+.hours-list span {
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  display: flex;
+  font-size: 11px;
+  justify-content: space-between;
+  padding: 9px 0;
+}
+
+.hours-list b:last-child {
+  color: var(--text);
+  font-weight: 400;
+}
+
+.testimonial-empty {
+  align-items: center;
+  border: 1px solid var(--line);
+  display: flex;
+  gap: 22px;
+  justify-content: space-between;
+  padding: 28px;
+}
+
+.testimonial-empty strong {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .coverage-grid,
+  .plans-grid,
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .process-step:nth-child(3) {
+    border-right: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .coverage-grid,
+  .plans-grid,
+  .trust-grid,
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-step {
+    border-bottom: 1px solid var(--line);
+    border-right: 0;
+    padding: 24px 0;
+  }
+
+  .process-step:last-child {
+    border-bottom: 0;
+  }
+
+  .testimonial-empty {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
 .feedback-error {
   color: #ffbdab;
 }
