@@ -16,7 +16,7 @@ export const products = [
     description:
       'Koneksi internet fiber untuk rumah dan usaha. Menemani aktivitas belajar, bekerja, hiburan, dan kebutuhan digital Anda.',
     features: ['Koneksi berbasis fiber optik', 'Pemasangan oleh tim lapangan', 'Konsultasi kebutuhan dan cakupan'],
-    image: 'home - installation.jpg',
+    image: 'home-installation.jpg',
   },
   {
     id: 'hotspot',
@@ -30,7 +30,7 @@ export const products = [
       'Pilihan penggunaan sesuai kebutuhan',
       'Area Banjaran, Cimaung, dan Ciwidey',
     ],
-    image: 'network - installation.jpg',
+    image: 'network-installation.jpg',
   },
   {
     id: 'billing',
@@ -44,7 +44,7 @@ export const products = [
       'Invoice dan pencatatan pembayaran',
       'Integrasi MikroTik, suspend dan aktivasi',
     ],
-    image: 'gnet - billing.png',
+    image: 'gnet-billing.png',
   },
 ];
 
