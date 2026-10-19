@@ -1,0 +1,10 @@
+.env*
+.git
+node_modules
+docs
+README.md
+DEPLOYMENT.md
+netlify.toml
+
+tests
+feedback-export*.txt

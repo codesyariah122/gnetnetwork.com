@@ -1,0 +1,87 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTA from '../components/CTA.astro';
+import { gallery } from '../data/site';
+---
+
+<Layout title="Galeri">
+  <section class="wrap page-intro">
+    <span class="eyebrow">GALERI GNET NETWORK</span>
+    <h1>
+      Di lapangan.
+      <br />
+      <em>Untuk koneksi Anda.</em>
+    </h1>
+    <p>
+      Potret pekerjaan, ketelitian, dan orang-orang di balik jaringan GNET. Dokumentasi asli dari aktivitas tim kami.
+    </p>
+  </section>
+  <section class="wrap gallery-section">
+    <div class="pills filters" role="group" aria-label="Filter galeri">
+      {['Semua', 'Instalasi', 'Jaringan', 'Tim'].map((v, i) => (
+        <button data-filter={v} aria-pressed={i === 0}>
+          {v}
+        </button>
+      ))}
+    </div>
+    <p class="sr-only" id="gallery-status" aria-live="polite"></p>
+    <div class="gallery-grid">
+      {gallery.map((g) => (
+        <button
+          class="gallery-item"
+          data-category={g.category}
+          data-image={`/images/${g.image}`}
+          data-title={g.title}
+          data-description={g.description}
+          aria-label={`Perbesar: ${g.title}`}
+        >
+          <img src={`/images/${g.image}`} alt={g.description} loading="lazy" width="720" height="1000" />
+          <span>
+            <small>{g.category.toUpperCase()}</small>
+            <strong>{g.title}↗</strong>
+          </span>
+        </button>
+      ))}
+    </div>
+  </section>
+  <dialog id="lightbox">
+    <button class="close-lightbox" aria-label="Tutup foto">
+      ✕
+    </button>
+    <img src="" alt="" />
+    <h2></h2>
+    <p></p>
+  </dialog>
+  <CTA />
+  <script>
+    const dialog = document.querySelector<HTMLDialogElement>('#lightbox')!;
+    let opener: HTMLButtonElement | null = null;
+    document.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach((button) =>
+      button.addEventListener('click', () => {
+        document.querySelectorAll('[data-filter]').forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+        let count = 0;
+        document.querySelectorAll<HTMLButtonElement>('[data-category]').forEach((card) => {
+          card.hidden = button.dataset.filter !== 'Semua' && card.dataset.category !== button.dataset.filter;
+          if (!card.hidden) count++;
+        });
+        document.querySelector('#gallery-status')!.textContent = `${count} foto ditampilkan`;
+      }),
+    );
+    document.querySelectorAll<HTMLButtonElement>('[data-image]').forEach((button) =>
+      button.addEventListener('click', () => {
+        opener = button;
+        const img = dialog.querySelector('img')!;
+        img.src = button.dataset.image!;
+        img.alt = button.dataset.description!;
+        dialog.querySelector('h2')!.textContent = button.dataset.title!;
+        dialog.querySelector('p')!.textContent = button.dataset.description!;
+        dialog.showModal();
+      }),
+    );
+    dialog.querySelector('button')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener('close', () => opener?.focus());
+  </script>
+</Layout>

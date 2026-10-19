@@ -1,0 +1,22 @@
+---
+import { products } from '../data/site';
+---
+
+<div class="product-grid">
+  {products.map((p) => (
+    <a class="product-card" href={`/products/#${p.id}`}>
+      <div class="card-top">
+        <span>{p.number} / SOLUSI GNET</span>
+        <span>↗</span>
+      </div>
+      <div class={`product-icon ${p.id}`} aria-hidden="true">
+        {p.id === 'fiber' ? '⌁' : p.id === 'hotspot' ? '◉' : '▥'}
+      </div>
+      <h3>{p.name}</h3>
+      <p>{p.description}</p>
+      <span class="text-link">
+        Jelajahi layanan <span>↗</span>
+      </span>
+    </a>
+  ))}
+</div>

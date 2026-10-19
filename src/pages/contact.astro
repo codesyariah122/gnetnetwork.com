@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { company } from '../data/site';
+const mapQuery = 'Tangu, Margahurip, Banjaran, Kabupaten Bandung, Jawa Barat';
+const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+const mapEmbed = `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&z=15&hl=id&output=embed`;
+---
+
+<Layout title="Hubungi Kami">
+  <section class="wrap page-intro">
+    <span class="eyebrow">KONTAK & LOKASI</span>
+    <h1>
+      Percakapan pertama.
+      <br />
+      <em>Kemungkinan baru.</em>
+    </h1>
+    <p>Butuh internet untuk rumah atau usaha? Ingin mengenal GNET Billing? Ceritakan kebutuhan Anda kepada kami.</p>
+  </section>
+  <section class="wrap contact-grid section">
+    <div>
+      <span class="eyebrow">MARI TERHUBUNG</span>
+      <h2>
+        Kami siap
+        <br />
+        <em>mendengarkan.</em>
+      </h2>
+      <div class="contact-info">
+        <small>WHATSAPP</small>
+        <a href={company.whatsapp} target="_blank" rel="noopener noreferrer">
+          {company.phone} ↗
+        </a>
+        <small>KUNJUNGI KAMI</small>
+        <p>{company.address}</p>
+        <a class="plain-link" href={mapsLink} target="_blank" rel="noopener noreferrer">
+          Buka lokasi di Google Maps ↗
+        </a>
+        <small>PRODUK DIGITAL</small>
+        <a href={company.billing} target="_blank" rel="noopener noreferrer">
+          billing.gnetnetwork.com ↗
+        </a>
+      </div>
+    </div>
+    <form id="contact-form" class="contact-form">
+      <h3>Apa yang bisa kami bantu?</h3>
+      <p>Isi formulir untuk menyiapkan pesan, lalu lanjutkan percakapan di WhatsApp.</p>
+      <label for="name">Nama Anda</label>
+      <input id="name" name="name" autocomplete="name" maxlength="100" placeholder="Nama lengkap" required />
+      <label for="service">Layanan yang diminati</label>
+      <select id="service" name="service">
+        <option>Internet Fiber</option>
+        <option>WiFi Hotspot</option>
+        <option>GNET Billing</option>
+        <option>Kerja sama / Lainnya</option>
+      </select>
+      <label for="location">Lokasi Anda</label>
+      <input
+        id="location"
+        name="location"
+        autocomplete="street-address"
+        maxlength="200"
+        placeholder="Kecamatan / kabupaten"
+        required
+      />
+      <label for="message">Ceritakan kebutuhan Anda</label>
+      <textarea
+        id="message"
+        name="message"
+        rows="4"
+        maxlength="1500"
+        placeholder="Saya ingin mengetahui..."
+        required
+      ></textarea>
+      <button class="button primary" type="submit">
+        Lanjutkan ke WhatsApp
+        <span>↗</span>
+      </button>
+      <small>Pesan dikirim setelah Anda menekan kirim di WhatsApp.</small>
+    </form>
+  </section>
+  <section class="wrap contact-map" aria-labelledby="map-heading">
+    <div class="map-heading">
+      <div>
+        <span class="eyebrow">KUNJUNGI GNET NETWORK</span>
+        <h2 id="map-heading">
+          Temukan kami
+          <br />
+          di <em>Banjaran.</em>
+        </h2>
+        <p>{company.address}</p>
+      </div>
+      <a class="button outline" href={mapsLink} target="_blank" rel="noopener noreferrer">
+        Buka di Google Maps <span>↗</span>
+      </a>
+    </div>
+    <div class="map-frame">
+      <iframe
+        title="Google Maps area Tangu, Margahurip, Banjaran — GNET Network"
+        src={mapEmbed}
+        width="1200"
+        height="440"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </div>
+    <p class="map-caption">Peta area Tangu, Margahurip, Banjaran. Hubungi tim GNET untuk petunjuk menuju lokasi.</p>
+  </section>
+  <section class="wrap location-panel">
+    <span class="eyebrow">BERAKAR DI BANDUNG SELATAN</span>
+    <h2>
+      Banjaran. Cimaung.
+      <br />
+      <em>Ciwidey. Dan Anda.</em>
+    </h2>
+    <p>Hubungi tim untuk mengonfirmasi cakupan dan ketersediaan layanan di lokasi Anda.</p>
+  </section>
+  <script>
+    document.querySelector<HTMLFormElement>('#contact-form')?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget as HTMLFormElement);
+      const text = `Halo GNET Network, saya ${data.get('name')}.\nLayanan: ${data.get('service')}\nLokasi: ${data.get('location')}\n\n${data.get('message')}`;
+      window.location.href = `https://wa.me/6281220562220?text=${encodeURIComponent(text)}`;
+    });
+  </script>
+</Layout>

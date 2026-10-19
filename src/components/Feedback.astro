@@ -1,0 +1,181 @@
+---
+import { feedbackCategories } from '../../lib/feedback-policy.mjs';
+---
+
+<button class="feedback-float" id="open-feedback" type="button" aria-haspopup="dialog" aria-controls="feedback-dialog">
+  <span aria-hidden="true">☆</span>
+  <span>Feedback</span>
+</button>
+<dialog id="feedback-dialog" class="feedback-dialog" aria-labelledby="feedback-title">
+  <div class="feedback-head">
+    <div>
+      <span class="eyebrow">SUARA ANDA BERARTI</span>
+      <h2 id="feedback-title">Bagaimana pengalaman Anda?</h2>
+    </div>
+    <button id="close-feedback" type="button" aria-label="Tutup feedback">
+      ×
+    </button>
+  </div>
+  <p class="feedback-intro">
+    Bantu kami membuat website GNET lebih baik. Saran dan kritik membangun selalu kami dengarkan.
+  </p>
+  <form id="feedback-form">
+    <fieldset class="feedback-rating">
+      <legend>
+        Pengalaman menjelajahi website <span aria-hidden="true">*</span>
+      </legend>
+      <div class="feedback-stars">
+        {[1, 2, 3, 4, 5].map((n) => (
+          <label>
+            <input type="radio" name="rating" value={n} required aria-label={`${n} bintang`} />
+            <span aria-hidden="true">★</span>
+          </label>
+        ))}
+      </div>
+      <p id="rating-description">Pilih 1–5 bintang</p>
+    </fieldset>
+    <label class="feedback-label" for="feedback-name">
+      Nama <span>(opsional)</span>
+    </label>
+    <input
+      id="feedback-name"
+      name="name"
+      type="text"
+      maxlength="80"
+      autocomplete="name"
+      placeholder="Boleh tetap anonim"
+    />
+    <label class="feedback-label" for="feedback-category">
+      Jenis masukan
+    </label>
+    <select id="feedback-category" name="category">
+      {feedbackCategories.map((category) => (
+        <option>{category}</option>
+      ))}
+    </select>
+    <label class="feedback-label" for="feedback-message">
+      Masukan Anda <span aria-hidden="true">*</span>
+    </label>
+    <textarea
+      id="feedback-message"
+      name="message"
+      minlength="10"
+      maxlength="1500"
+      rows="4"
+      required
+      placeholder="Apa yang sudah baik? Apa yang bisa kami perbaiki?"
+      aria-describedby="feedback-guidance"
+    ></textarea>
+    <p id="feedback-guidance" class="feedback-guidance">
+      10–1.500 karakter. Kritik boleh, tetap gunakan bahasa yang sopan.
+    </p>
+    <div class="feedback-trap" aria-hidden="true">
+      <label for="feedback-website">Website</label>
+      <input id="feedback-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+    <p id="feedback-status" role="status" aria-live="polite" tabindex="-1"></p>
+    <button class="button primary feedback-submit" type="submit">
+      Kirim masukan <span aria-hidden="true">↗</span>
+    </button>
+    <p class="feedback-privacy">
+      Masukan disimpan secara privat untuk tim GNET, bukan dipublikasikan sebagai ulasan. Jangan sertakan password atau
+      data sensitif.
+    </p>
+  </form>
+  <div id="feedback-success" hidden>
+    <div class="feedback-success-icon" aria-hidden="true">
+      ✓
+    </div>
+    <h3>Terima kasih sudah berbagi.</h3>
+    <p>Masukan Anda sudah tersimpan. Tim GNET akan menggunakannya untuk membantu meningkatkan website.</p>
+    <button class="button outline" id="done-feedback" type="button">
+      Selesai
+    </button>
+  </div>
+</dialog>
+<script>
+  import { validateFeedback } from '../../lib/feedback-policy.mjs';
+  const dialog = document.querySelector<HTMLDialogElement>('#feedback-dialog')!;
+  const trigger = document.querySelector<HTMLButtonElement>('#open-feedback')!;
+  const form = document.querySelector<HTMLFormElement>('#feedback-form')!;
+  const status = document.querySelector<HTMLParagraphElement>('#feedback-status')!;
+  const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+  const descriptions = ['', 'Kurang baik', 'Perlu ditingkatkan', 'Cukup baik', 'Baik', 'Sangat baik'];
+  trigger.addEventListener('click', () => dialog.showModal());
+  for (const id of ['close-feedback', 'done-feedback'])
+    document.getElementById(id)?.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) {
+      const r = dialog.getBoundingClientRect();
+      const e = event as MouseEvent;
+      if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dialog.close();
+    }
+  });
+  dialog.addEventListener('close', () => trigger.focus());
+  form.querySelectorAll<HTMLInputElement>('[name="rating"]').forEach((input) =>
+    input.addEventListener('change', () => {
+      const score = Number(input.value);
+      form
+        .querySelectorAll<HTMLInputElement>('[name="rating"]')
+        .forEach((radio) => radio.closest('label')?.classList.toggle('filled', Number(radio.value) <= score));
+      document.getElementById('rating-description')!.textContent = `${score}/5 — ${descriptions[score]}`;
+    }),
+  );
+  let submitting = false;
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (submitting) return;
+    const data = new FormData(form);
+    const payload = {
+      rating: Number(data.get('rating')),
+      name: String(data.get('name') || ''),
+      category: String(data.get('category') || ''),
+      message: String(data.get('message') || ''),
+      page: window.location.pathname,
+      website: String(data.get('website') || ''),
+    };
+    const check = validateFeedback(payload);
+    status.textContent = '';
+    status.classList.remove('feedback-error');
+    if (!check.ok) {
+      status.textContent = check.message;
+      status.classList.add('feedback-error');
+      status.focus();
+      return;
+    }
+    submitting = true;
+    submit.disabled = true;
+    submit.textContent = 'Menyimpan…';
+    form.setAttribute('aria-busy', 'true');
+    try {
+      const response = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+        signal: AbortSignal.timeout(20000),
+      });
+      const result = await response.json().catch(() => ({
+        ok: false,
+        message: 'Masukan belum tersimpan. Silakan coba beberapa saat lagi.',
+      }));
+      if (!response.ok || !result.ok) throw new Error(result.message || 'Masukan belum tersimpan. Silakan coba lagi.');
+      form.hidden = true;
+      document.getElementById('feedback-success')!.hidden = false;
+      document.getElementById('done-feedback')?.focus();
+    } catch (error) {
+      status.textContent =
+        error instanceof Error && error.name !== 'TimeoutError' && error.name !== 'TypeError'
+          ? error.message
+          : 'Masukan belum terkonfirmasi tersimpan. Periksa koneksi dan coba beberapa saat lagi.';
+      status.classList.add('feedback-error');
+      status.focus();
+    } finally {
+      submitting = false;
+      submit.disabled = false;
+      submit.innerHTML = 'Kirim masukan <span aria-hidden="true">↗</span>';
+      form.removeAttribute('aria-busy');
+    }
+  });
+</script>

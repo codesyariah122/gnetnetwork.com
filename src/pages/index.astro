@@ -1,0 +1,193 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Products from '../components/Products.astro';
+import CTA from '../components/CTA.astro';
+import { gallery, company } from '../data/site';
+---
+
+<Layout title="Koneksi tanpa batas. Potensi tanpa henti.">
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">
+        <i></i> KONEKTIVITAS & SOLUSI DIGITAL
+      </span>
+      <h1>
+        Terhubung.
+        <br />
+        Bergerak.
+        <br />
+        <em>Melampaui.</em>
+      </h1>
+      <p>
+        Dari koneksi internet hingga ekosistem digital.
+        <br class="desktop" /> GNET Network hadir untuk membuka lebih banyak kemungkinan.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="/products/">
+          Temukan solusi Anda <span>↗</span>
+        </a>
+        <a class="plain-link" href="/about/">
+          Mengenal GNET <span>→</span>
+        </a>
+      </div>
+      <div class="hero-note">
+        <span class="tiny-orbit">◎</span>
+        <span>
+          Berakar di Bandung Selatan.
+          <br />
+          <strong>Terhubung dengan masa depan.</strong>
+        </span>
+      </div>
+    </div>
+    <div class="hero-art" aria-label="Ilustrasi orbit jaringan GNET">
+      <div class="orbit orbit-one"></div>
+      <div class="orbit orbit-two"></div>
+      <div class="orbit orbit-three"></div>
+      <div class="globe">
+        <div class="globe-grid"></div>
+        <span>
+          G<span>NET</span>
+        </span>
+      </div>
+      <div class="orb-dot d1"></div>
+      <div class="orb-dot d2"></div>
+      <div class="art-label label-top">
+        <i></i> CONNECTED BY GNET
+      </div>
+      <div class="art-label label-bottom">
+        FIBER · HOTSPOT · DIGITAL
+        <br />
+        <strong>One connected ecosystem.</strong>
+      </div>
+      <span class="art-coordinate">07° S / 107° E — BANDUNG SELATAN</span>
+    </div>
+  </section>
+  <div class="service-strip">
+    <span>INTERNET FIBER</span>
+    <b>✳</b>
+    <span>WIFI HOTSPOT</span>
+    <b>✳</b>
+    <span>GNET BILLING</span>
+    <b>✳</b>
+    <span>CONNECTING POSSIBILITIES</span>
+  </div>
+  <section class="wrap section">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">01 / EKOSISTEM KAMI</span>
+        <h2>
+          Satu jaringan.
+          <br />
+          <em>Banyak kemungkinan.</em>
+        </h2>
+      </div>
+      <p>
+        Konektivitas yang Anda butuhkan, teknologi yang membantu Anda tumbuh. Temukan layanan GNET untuk rumah, usaha,
+        dan operasional ISP.
+      </p>
+    </div>
+    <Products />
+  </section>
+  <section class="about-band">
+    <div class="wrap split">
+      <div class="photo-frame">
+        <img
+          src="/images/fiber-splicing.jpg"
+          alt="Tim GNET menyambungkan kabel fiber optik"
+          width="899"
+          height="1599"
+          loading="lazy"
+        />
+        <span class="photo-caption">DI BALIK KONEKSI, ADA DEDIKASI.</span>
+      </div>
+      <div>
+        <span class="eyebrow">02 / TENTANG GNET</span>
+        <h2>
+          Teknologi maju.
+          <br />
+          <em>Sentuhan manusia.</em>
+        </h2>
+        <p>
+          GNET Network adalah identitas layanan CV GNET Cipta Karya Asha. Kami mempertemukan infrastruktur jaringan
+          dengan solusi digital untuk kebutuhan masyarakat dan pelaku usaha.
+        </p>
+        <p>
+          Dari pemasangan fiber di lapangan hingga pengelolaan layanan melalui GNET Billing, kami percaya koneksi yang
+          baik dimulai dari memahami kebutuhan Anda.
+        </p>
+        <a class="button outline" href="/about/">
+          Kenali kami lebih dekat <span>↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="wrap section billing-feature">
+    <div>
+      <span class="eyebrow">03 / DIGITAL FLAGSHIP</span>
+      <h2>
+        Operasional ISP.
+        <br />
+        Lebih <em>terkendali.</em>
+      </h2>
+      <p>
+        GNET Billing menyatukan pelanggan, invoice, pembayaran, PPPoE, dan Hotspot berbasis MikroTik dalam satu
+        dashboard.
+      </p>
+      <a class="button primary" href={company.billing} target="_blank" rel="noopener noreferrer">
+        Jelajahi GNET Billing <span>↗</span>
+      </a>
+    </div>
+    <div class="billing-visual">
+      <div class="mock-top">
+        <span>◎ GNET BILLING</span>
+        <span class="status">● MikroTik ecosystem</span>
+      </div>
+      <h3>
+        Everything.
+        <br />
+        In one place.
+      </h3>
+      <div class="mock-rows">
+        <span>
+          01 <strong>Manajemen pelanggan</strong> ↗
+        </span>
+        <span>
+          02 <strong>Invoice & pembayaran</strong> ↗
+        </span>
+        <span>
+          03 <strong>PPPoE & Hotspot</strong> ↗
+        </span>
+      </div>
+      <small>EKOSISTEM FITUR GNET BILLING</small>
+    </div>
+  </section>
+  <section class="wrap section gallery-home">
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">04 / CERITA DARI LAPANGAN</span>
+        <h2>
+          Kerja nyata.
+          <br />
+          <em>Koneksi nyata.</em>
+        </h2>
+      </div>
+      <a class="plain-link" href="/gallery/">
+        Lihat semua dokumentasi ↗
+      </a>
+    </div>
+    <div class="gallery-preview">
+      {[gallery[0], gallery[2], gallery[4]].map((g, i) => (
+        <a href="/gallery/" class="gallery-item">
+          <img src={`/images/${g.image}`} alt={g.description} width="720" height="1000" loading="lazy" />
+          <span>
+            <small>
+              0{i + 1} / {g.category.toUpperCase()}
+            </small>
+            <strong>{g.title}↗</strong>
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+  <CTA />
+</Layout>

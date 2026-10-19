@@ -1,0 +1,248 @@
+---
+import '../styles/global.css';
+import Feedback from '../components/Feedback.astro';
+import { company } from '../data/site';
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+const seo: Record<string, { title: string; description: string; label: string }> = {
+  '/': {
+    title: 'Internet Fiber, WiFi Hotspot & Billing ISP',
+    description:
+      'GNET Network menghadirkan internet fiber, WiFi hotspot, dan GNET Billing berbasis MikroTik. Kenali layanan CV GNET Cipta Karya Asha di Bandung Selatan.',
+    label: 'Beranda',
+  },
+  '/about': {
+    title: 'Tentang Kami — CV GNET Cipta Karya Asha',
+    description:
+      'Kenali GNET Network, CV GNET Cipta Karya Asha di Banjaran, Bandung. Dipimpin Rangga Wirawan, menghadirkan layanan internet dan solusi digital ISP.',
+    label: 'Tentang Kami',
+  },
+  '/products': {
+    title: 'Produk: Fiber, Hotspot & GNET Billing',
+    description:
+      'Jelajahi GNET Fiber, voucher WiFi hotspot, dan GNET Billing untuk pelanggan, invoice, pembayaran, PPPoE, serta Hotspot MikroTik. Konsultasikan kebutuhan Anda.',
+    label: 'Produk & Layanan',
+  },
+  '/gallery': {
+    title: 'Galeri Instalasi Fiber & Aktivitas Tim',
+    description:
+      'Lihat dokumentasi asli tim GNET Network: instalasi fiber optik, penyambungan kabel, pengukuran sinyal, dan pekerjaan jaringan di lapangan.',
+    label: 'Galeri',
+  },
+  '/contact': {
+    title: 'Kontak & Lokasi GNET Network di Banjaran',
+    description:
+      'Hubungi GNET Network di Banjaran, Kabupaten Bandung untuk cek cakupan internet fiber, WiFi hotspot, dan konsultasi GNET Billing melalui WhatsApp.',
+    label: 'Kontak',
+  },
+};
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const page = seo[path];
+const {
+  title: fallbackTitle,
+  description: customDescription,
+  noindex = path === '/404' || path === '/404.html',
+} = Astro.props;
+const pageTitle = `${page?.title ?? fallbackTitle} | GNET Network`;
+const description =
+  customDescription ??
+  page?.description ??
+  'GNET Network — layanan internet fiber, WiFi hotspot, dan GNET Billing dari CV GNET Cipta Karya Asha di Kabupaten Bandung.';
+const canonical = new URL(path, Astro.site);
+const ogImage = new URL('/images/gnet-network-og-v1.jpg', Astro.site);
+const ogImageAlt = 'GNET Network — Terhubung. Bergerak. Melampaui. Internet Fiber, WiFi Hotspot, dan GNET Billing.';
+const nav = [
+  ['/', 'Beranda'],
+  ['/about/', 'Tentang Kami'],
+  ['/products/', 'Produk'],
+  ['/gallery/', 'Galeri'],
+  ['/contact/', 'Kontak'],
+];
+const organizationId = new URL('/#organization', Astro.site).href;
+const websiteId = new URL('/#website', Astro.site).href;
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': organizationId,
+      name: company.name,
+      legalName: company.legal,
+      url: Astro.site?.href,
+      logo: { '@type': 'ImageObject', url: new URL('/images/logo.png', Astro.site).href },
+      telephone: company.phone,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Tangu, Margahurip, Kecamatan Banjaran',
+        addressLocality: 'Kabupaten Bandung',
+        addressRegion: 'Jawa Barat',
+        postalCode: '40377',
+        addressCountry: 'ID',
+      },
+      founder: { '@type': 'Person', name: 'Rangga Wirawan' },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: company.phone,
+        contactType: 'customer service',
+        availableLanguage: 'Indonesian',
+      },
+    },
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      url: Astro.site?.href,
+      name: company.name,
+      inLanguage: 'id-ID',
+      publisher: { '@id': organizationId },
+    },
+    {
+      '@type':
+        path === '/about'
+          ? 'AboutPage'
+          : path === '/contact'
+            ? 'ContactPage'
+            : path === '/gallery' || path === '/products'
+              ? 'CollectionPage'
+              : 'WebPage',
+      '@id': `${canonical.href}#webpage`,
+      url: canonical.href,
+      name: pageTitle,
+      description,
+      inLanguage: 'id-ID',
+      isPartOf: { '@id': websiteId },
+      about: { '@id': organizationId },
+      primaryImageOfPage: { '@type': 'ImageObject', url: ogImage.href, width: 1200, height: 630 },
+      ...(path !== '/' && page ? { breadcrumb: { '@id': `${canonical.href}#breadcrumb` } } : {}),
+    },
+    ...(path !== '/' && page
+      ? [
+          {
+            '@type': 'BreadcrumbList',
+            '@id': `${canonical.href}#breadcrumb`,
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Beranda', item: Astro.site?.href },
+              { '@type': 'ListItem', position: 2, name: page.label, item: canonical.href },
+            ],
+          },
+        ]
+      : []),
+  ],
+};
+---
+
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101b18" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={company.legal} />
+    <meta
+      name="robots"
+      content={
+        noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
+      }
+    />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <meta property="og:site_name" content={company.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:secure_url" content={ogImage} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(schema).replace(/</g, String.fromCharCode(92) + 'u003c')}
+    />
+  </head>
+  <body>
+    <a class="skip" href="#main">
+      Lewati ke konten
+    </a>
+    <header>
+      <a class="brand" href="/" aria-label="GNET Network beranda">
+        <img src="/images/logo.png" alt="" width="72" height="72" />
+        <span>
+          GNET<span class="brand-light">NETWORK</span>
+          <small>CONNECTING POSSIBILITIES</small>
+        </span>
+      </a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="navigation">
+        Menu <span>☰</span>
+      </button>
+      <nav id="navigation" aria-label="Navigasi utama">
+        {nav.map(([href, label]) => (
+          <a href={href} aria-current={Astro.url.pathname === href ? 'page' : undefined}>
+            {label}
+          </a>
+        ))}
+      </nav>
+      <a class="header-cta" href="/contact/">
+        Mari terhubung <span>↗</span>
+      </a>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <Feedback />
+    <footer>
+      <div class="footer-top">
+        <a class="brand" href="/">
+          <img src="/images/logo.png" alt="Logo GNET" width="72" height="72" />
+          <span>
+            GNET<span class="brand-light">NETWORK</span>
+            <small>CV GNET CIPTA KARYA ASHA</small>
+          </span>
+        </a>
+        <p>
+          Koneksi yang mendekatkan.
+          <br />
+          Teknologi yang menggerakkan.
+        </p>
+        <a href={company.whatsapp} target="_blank" rel="noopener noreferrer">
+          Mulai percakapan ↗
+        </a>
+      </div>
+      <div class="footer-bottom">
+        <span>© {new Date().getFullYear()} GNET Network.</span>
+        <span>Banjaran, Kabupaten Bandung</span>
+        <a href={company.billing} target="_blank" rel="noopener noreferrer">
+          GNET Billing ↗
+        </a>
+        <a href="/contact/">Kontak & lokasi</a>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const nav = document.querySelector('header nav');
+      toggle?.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(open));
+        nav?.classList.toggle('open', open);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          toggle?.setAttribute('aria-expanded', 'false');
+          nav?.classList.remove('open');
+        }
+      });
+    </script>
+  </body>
+</html>

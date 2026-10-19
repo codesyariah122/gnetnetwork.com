@@ -1,0 +1,103 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CTA from '../components/CTA.astro';
+import { products, company } from '../data/site';
+---
+
+<Layout title="Produk & Layanan">
+  <section class="wrap page-intro">
+    <span class="eyebrow">PRODUK & LAYANAN</span>
+    <h1>
+      Koneksi yang tepat.
+      <br />
+      <em>Untuk langkah Anda.</em>
+    </h1>
+    <p>
+      Internet untuk keseharian. Hotspot untuk fleksibilitas. Sistem billing untuk operasional yang lebih terkelola.
+    </p>
+    <div class="pills">
+      {products.map((p) => (
+        <a href={`#${p.id}`}>{p.name} ↘</a>
+      ))}
+    </div>
+  </section>
+  <div class="wrap">
+    {products.map((p) => (
+      <section id={p.id} class="product-detail split">
+        <div>
+          <span class="eyebrow">
+            {p.number} / {p.tag}
+          </span>
+          <h2>
+            {p.name}
+            <em>.</em>
+          </h2>
+          <p>{p.description}</p>
+          <ul class="feature-list">
+            {p.features.map((f) => (
+              <li>
+                <span>↗</span> {f}
+              </li>
+            ))}
+          </ul>
+          <a
+            class="button primary"
+            href={
+              p.id === 'billing'
+                ? company.billing
+                : `${company.whatsapp}?text=${encodeURIComponent(`Halo GNET, saya ingin informasi layanan ${p.name}.`)}`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {p.id === 'billing' ? 'Kunjungi GNET Billing' : 'Konsultasikan layanan'}
+            <span>↗</span>
+          </a>
+          {p.id !== 'billing' && (
+            <small class="availability">
+              Ketersediaan jaringan dan paket dikonfirmasi oleh tim GNET sesuai lokasi.
+            </small>
+          )}
+        </div>
+        <div class="product-photo">
+          <img
+            src={`/images/${p.image}`}
+            alt={`Dokumentasi ${p.id === 'billing' ? 'pengukuran jaringan fiber GNET' : p.name}`}
+            width="720"
+            height="1280"
+            loading="lazy"
+          />
+          <span>{p.tag}</span>
+        </div>
+      </section>
+    ))}
+  </div>
+  <section class="wrap section faq">
+    <span class="eyebrow">PERTANYAAN UMUM</span>
+    <h2>
+      Sebelum kita <em>terhubung.</em>
+    </h2>
+    <details>
+      <summary>Bagaimana cara mengetahui cakupan internet fiber?</summary>
+      <p>
+        Kirimkan alamat atau titik lokasi melalui WhatsApp. Tim GNET akan mengonfirmasi ketersediaan jaringan, pilihan
+        paket, dan proses pemasangan.
+      </p>
+    </details>
+    <details>
+      <summary>Di mana voucher WiFi hotspot dapat digunakan?</summary>
+      <p>
+        Layanan hotspot tersedia di area jaringan GNET di Banjaran, Cimaung, dan Ciwidey. Konfirmasikan titik hotspot
+        kepada tim sebelum membeli voucher.
+      </p>
+    </details>
+    <details>
+      <summary>Apa perbedaan layanan internet dan GNET Billing?</summary>
+      <p>
+        Fiber dan hotspot menyediakan akses internet. GNET Billing adalah produk digital untuk membantu pengelola ISP
+        mengatur pelanggan, invoice, pembayaran, dan layanan MikroTik.
+      </p>
+    </details>
+  </section>
+  <CTA />
+</Layout>
